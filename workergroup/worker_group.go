@@ -3,6 +3,8 @@ package workergroup
 import (
 	"runtime"
 	"sync"
+
+	"github.com/lewjian/utils/rescue"
 )
 
 type WorkerGroup struct {
@@ -16,10 +18,10 @@ func (tg *WorkerGroup) Run(f func()) {
 	tg.c <- struct{}{}
 	tg.wg.Add(1)
 	go func() {
-		defer func() {
+		defer rescue.Recover(func() {
 			tg.wg.Done()
 			<-tg.c
-		}()
+		})
 		f()
 	}()
 }

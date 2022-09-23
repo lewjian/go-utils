@@ -1,7 +1,7 @@
 package array
 
 import (
-	"github.com/lewjian/utils/set"
+	"github.com/lewjian/utils/collection"
 )
 
 // InArray check if data contains element item, index=-1 when not exists
@@ -22,7 +22,7 @@ func Diff[T comparable](src []T, others ...[]T) []T {
 	if len(others) == 0 {
 		return src
 	}
-	s := set.NewSet[T]()
+	s := collection.NewSet[T]()
 	for i := 0; i < len(others); i++ {
 		s.Add(others[i]...)
 	}
