@@ -3,9 +3,9 @@ package collection
 import "sync"
 
 // A Queue is a FIFO queue.
-type Queue struct {
+type Queue[T any] struct {
 	lock     sync.Mutex
-	elements []interface{}
+	elements []T
 	size     int
 	head     int
 	tail     int
@@ -13,15 +13,15 @@ type Queue struct {
 }
 
 // NewQueue returns a Queue object.
-func NewQueue(size int) *Queue {
-	return &Queue{
-		elements: make([]interface{}, size),
+func NewQueue[T any](size int) *Queue[T] {
+	return &Queue[T]{
+		elements: make([]T, size),
 		size:     size,
 	}
 }
 
 // Empty checks if q is empty.
-func (q *Queue) Empty() bool {
+func (q *Queue[T]) Empty() bool {
 	q.lock.Lock()
 	empty := q.count == 0
 	q.lock.Unlock()
@@ -30,12 +30,12 @@ func (q *Queue) Empty() bool {
 }
 
 // Put puts element into q at the last position.
-func (q *Queue) Put(element interface{}) {
+func (q *Queue[T]) Put(element T) {
 	q.lock.Lock()
 	defer q.lock.Unlock()
 
 	if q.head == q.tail && q.count > 0 {
-		nodes := make([]interface{}, len(q.elements)+q.size)
+		nodes := make([]T, len(q.elements)+q.size)
 		copy(nodes, q.elements[q.head:])
 		copy(nodes[len(q.elements)-q.head:], q.elements[:q.head])
 		q.head = 0
@@ -49,15 +49,15 @@ func (q *Queue) Put(element interface{}) {
 }
 
 // Take takes the first element out of q if not empty.
-func (q *Queue) Take() (interface{}, bool) {
+func (q *Queue[T]) Take() (T, bool) {
 	q.lock.Lock()
 	defer q.lock.Unlock()
-
+	var element T
 	if q.count == 0 {
-		return nil, false
+		return element, false
 	}
 
-	element := q.elements[q.head]
+	element = q.elements[q.head]
 	q.head = (q.head + 1) % len(q.elements)
 	q.count--
 

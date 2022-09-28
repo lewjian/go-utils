@@ -12,7 +12,7 @@ func TestFifo(t *testing.T) {
 		[]byte("world"),
 		[]byte("again"),
 	}
-	queue := NewQueue(8)
+	queue := NewQueue[[]byte](8)
 	for i := range elements {
 		queue.Put(elements[i])
 	}
@@ -20,7 +20,7 @@ func TestFifo(t *testing.T) {
 	for _, element := range elements {
 		body, ok := queue.Take()
 		assert.True(t, ok)
-		assert.Equal(t, string(element), string(body.([]byte)))
+		assert.Equal(t, string(element), string(body))
 	}
 }
 
@@ -30,7 +30,7 @@ func TestTakeTooMany(t *testing.T) {
 		[]byte("world"),
 		[]byte("again"),
 	}
-	queue := NewQueue(8)
+	queue := NewQueue[[]byte](8)
 	for i := range elements {
 		queue.Put(elements[i])
 	}
@@ -50,7 +50,7 @@ func TestPutMore(t *testing.T) {
 		[]byte("world"),
 		[]byte("again"),
 	}
-	queue := NewQueue(2)
+	queue := NewQueue[[]byte](2)
 	for i := range elements {
 		queue.Put(elements[i])
 	}
@@ -58,7 +58,7 @@ func TestPutMore(t *testing.T) {
 	for _, element := range elements {
 		body, ok := queue.Take()
 		assert.True(t, ok)
-		assert.Equal(t, string(element), string(body.([]byte)))
+		assert.Equal(t, string(element), string(body))
 	}
 }
 
@@ -68,7 +68,7 @@ func TestPutMoreWithHeaderNotZero(t *testing.T) {
 		[]byte("world"),
 		[]byte("again"),
 	}
-	queue := NewQueue(4)
+	queue := NewQueue[[]byte](4)
 	for i := range elements {
 		queue.Put(elements[i])
 	}
@@ -76,9 +76,7 @@ func TestPutMoreWithHeaderNotZero(t *testing.T) {
 	// take 1
 	body, ok := queue.Take()
 	assert.True(t, ok)
-	element, ok := body.([]byte)
-	assert.True(t, ok)
-	assert.Equal(t, element, []byte("hello"))
+	assert.Equal(t, body, []byte("hello"))
 
 	// put more
 	queue.Put([]byte("b4"))
@@ -96,6 +94,6 @@ func TestPutMoreWithHeaderNotZero(t *testing.T) {
 	for _, element := range results {
 		body, ok := queue.Take()
 		assert.True(t, ok)
-		assert.Equal(t, string(element), string(body.([]byte)))
+		assert.Equal(t, string(element), string(body))
 	}
 }
