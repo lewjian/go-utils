@@ -1,6 +1,10 @@
 package rescue
 
-import "log"
+import (
+	"fmt"
+
+	"github.com/lewjian/utils/log"
+)
 
 // Recover is used with defer to do cleanup on panics.
 // Use it like:
@@ -11,7 +15,7 @@ func Recover(cleanups ...func()) {
 	}
 
 	if p := recover(); p != nil {
-		log.Printf("panic: %v", p)
+		log.ErrorLogger.Error(fmt.Sprintf("panic: %v", p))
 	}
 }
 
