@@ -4,8 +4,8 @@ import (
 	"github.com/lewjian/utils/collection"
 )
 
-// InArray check if data contains element item, index=-1 when not exists
-func InArray[T comparable](item T, data []T) (exist bool, index int) {
+// Search check if data contains element item, index=-1 when not exists
+func Search[T comparable](item T, data []T) (exist bool, index int) {
 	index = -1
 	for i := 0; i < len(data); i++ {
 		if data[i] == item {
@@ -15,6 +15,12 @@ func InArray[T comparable](item T, data []T) (exist bool, index int) {
 		}
 	}
 	return
+}
+
+// InArray check if data contains element item
+func InArray[T comparable](item T, data []T) bool {
+	ex, _ := Search[T](item, data)
+	return ex
 }
 
 // Diff returns elements in src, but not in others...

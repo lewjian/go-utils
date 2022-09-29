@@ -39,12 +39,12 @@ func TestInArray(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotExist, gotIndex := InArray(tt.args.item, tt.args.data)
+			gotExist, gotIndex := Search(tt.args.item, tt.args.data)
 			if gotExist != tt.wantExist {
-				t.Errorf("InArray() gotExist = %v, want %v", gotExist, tt.wantExist)
+				t.Errorf("Search() gotExist = %v, want %v", gotExist, tt.wantExist)
 			}
 			if gotIndex != tt.wantIndex {
-				t.Errorf("InArray() gotIndex = %v, want %v", gotIndex, tt.wantIndex)
+				t.Errorf("Search() gotIndex = %v, want %v", gotIndex, tt.wantIndex)
 			}
 		})
 	}
