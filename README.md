@@ -9,7 +9,7 @@ package main
 import (
     "fmt"
 
-    "github.com/lewjian/utils/collection"
+    "github.com/lewjian/go-utils/collection"
 )
 
 func main() {
