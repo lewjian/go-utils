@@ -4,7 +4,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/lewjian/utils/rescue"
+	"github.com/lewjian/go-utils/rescue"
 )
 
 type WorkerGroup struct {

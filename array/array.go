@@ -1,7 +1,7 @@
 package array
 
 import (
-	"github.com/lewjian/utils/collection"
+	"github.com/lewjian/go-utils/collection"
 )
 
 // Search check if data contains element item, index=-1 when not exists

@@ -6,8 +6,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/lewjian/utils/number"
-	"github.com/lewjian/utils/rescue"
+	"github.com/lewjian/go-utils/number"
+	"github.com/lewjian/go-utils/rescue"
 )
 
 type (

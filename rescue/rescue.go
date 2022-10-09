@@ -3,7 +3,7 @@ package rescue
 import (
 	"fmt"
 
-	"github.com/lewjian/utils/log"
+	"github.com/lewjian/go-utils/log"
 )
 
 // Recover is used with defer to do cleanup on panics.
